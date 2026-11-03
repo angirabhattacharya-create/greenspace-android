@@ -1,0 +1,23 @@
+name: Build GreenSpace Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build installable APK with Expo EAS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm install
+      - name: Build APK on Expo
+        run: npx --yes eas-cli@latest build --platform android --profile preview --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
