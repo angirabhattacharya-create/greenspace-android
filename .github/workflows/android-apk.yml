@@ -16,6 +16,10 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
+      - name: Link EAS project
+        run: npx --yes eas-cli@latest init --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
       - name: Build APK on Expo
         run: npx --yes eas-cli@latest build --platform android --profile preview --non-interactive
         env:
