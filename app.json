@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "GreenSpace",
+    "slug": "greenspace-asim-shakti",
+    "version": "0.2.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "in.asimshakti.greenspace"
+    },
+    "extra": {
+      "brandDescriptor": "An independent urban gardening marketplace powered by Asim Shakti"
+    }
+  }
+}
