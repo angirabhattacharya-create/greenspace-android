@@ -38,7 +38,7 @@ export default function App() {
     Alert.alert("Request received", "Our team will contact you to confirm availability and the final quote.");
   };
 
-  const Header = () => <View style={s.header}><View><Text style={s.brand}>GreenSpace</Text><Text style={s.brandSub}>POWERED BY ASIM SHAKTI</Text></View><View style={s.location}><Text style={s.locationText}>⌖  Kolkata</Text></View></View>;
+  const Header = () => <View style={s.header}><View><Text style={s.brand}>SpacePeace</Text><Text style={s.brandSub}>POWERED BY ASIM SHAKTI</Text></View><View style={s.location}><Text style={s.locationText}>⌖  Kolkata</Text></View></View>;
   const ServiceCard = ({ item }) => <View style={s.card}><View style={s.row}><Text style={s.tag}>{item.tag}</Text><Text style={s.price}>From ₹{item.price}</Text></View><Text style={s.cardTitle}>{item.title}</Text><Text style={s.muted}>{item.subtitle}</Text><TouchableOpacity style={s.buttonSmall} onPress={() => setBooking(item)}><Text style={s.buttonText}>Book service</Text></TouchableOpacity></View>;
   const StoreCard = ({ item }) => <View style={s.card}><View style={s.productArt}><Text style={{fontSize:32}}>🌱</Text></View><Text style={s.cardTitle}>{item.name}</Text><Text style={s.muted}>{item.detail}</Text><View style={s.row}><Text style={s.price}>₹{item.price}</Text><TouchableOpacity style={s.buttonSmall} onPress={() => add(item.id)}><Text style={s.buttonText}>Add +</Text></TouchableOpacity></View><Text style={s.muted}>In cart: {cart[item.id] || 0}</Text></View>;
 
