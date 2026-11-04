@@ -40,7 +40,7 @@ export default function App() {
   useEffect(()=>{const splashTimer=setTimeout(()=>setShowSplash(false),1900);Animated.parallel([
     Animated.timing(fade,{toValue:1,duration:850,useNativeDriver:true}),
     Animated.spring(lift,{toValue:0,speed:13,bounciness:5,useNativeDriver:true})
-  ]).start();},[]);
+  ]).start();return ()=>clearTimeout(splashTimer);},[]);
   const cartCount=Object.values(cart).reduce((a,b)=>a+b,0);
   const cartTotal=useMemo(()=>products.reduce((sum,p)=>sum+p.price*(cart[p.id]||0),0),[cart]);
   const add=id=>setCart(prev=>({...prev,[id]:(prev[id]||0)+1}));
@@ -96,7 +96,8 @@ export default function App() {
       <View style={s.productGrid}>{products.slice(0,4).map(p=><ProductCard key={p.id} item={p}/>)}</View>
       <View style={s.promise}><Text style={s.promiseTitle}>Grow • Care • Nurture</Text><Text style={s.muted}>A little green can make every space feel like home.</Text></View>
     </Animated.View></ScrollView>;
-  if(showSplash) return <SafeAreaView style={[s.safe,{justifyContent:"center",alignItems:"center",backgroundColor:"#E8F3E5"}]}><StatusBar barStyle="dark-content" backgroundColor="#E8F3E5"/><Animated.View style={{alignItems:"center",opacity:fade,transform:[{scale:fade.interpolate({inputRange:[0,1],outputRange:[0.82,1]})}]}}><Image source={require("./assets/logo.png")} style={{width:300,height:300}} resizeMode="contain"/><Text style={{fontSize:13,color:"#54735B",marginTop:12}}>Grow • Care • Nurture</Text></Animated.View></SafeAreaView>;\n  return <SafeAreaView style={s.safe}><StatusBar barStyle="dark-content" backgroundColor={PALE}/><Header/>{content}
+  if(showSplash) return <SafeAreaView style={[s.safe,{justifyContent:"center",alignItems:"center",backgroundColor:"#E8F3E5"}]}><StatusBar barStyle="dark-content" backgroundColor="#E8F3E5"/><Animated.View style={{alignItems:"center",opacity:fade,transform:[{scale:fade.interpolate({inputRange:[0,1],outputRange:[0.82,1]})}]}}><Image source={require("./assets/logo.png")} style={{width:300,height:300}} resizeMode="contain"/><Text style={{fontSize:13,color:"#54735B",marginTop:12}}>Grow • Care • Nurture</Text></Animated.View></SafeAreaView>;
+  return <SafeAreaView style={s.safe}><StatusBar barStyle="dark-content" backgroundColor={PALE}/><Header/>{content}
     <View style={s.tabs}>{[["Home","⌂"],["Services","✂"],["Store","🛍"],["Bookings","▣"],["Profile","◯"]].map(([x,ico])=><TouchableOpacity key={x} style={s.tab} onPress={()=>{setBooking(null);setTab(x);}}><Text style={[s.tabIcon,tab===x&&s.active]}>{ico}</Text><Text style={[s.tabText,tab===x&&s.active]}>{x}</Text></TouchableOpacity>)}</View>
   </SafeAreaView>;
 }
