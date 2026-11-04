@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "GreenSpace",
+    "name": "SpacePeace",
     "slug": "greenspace-asim-shakti",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "android": {
