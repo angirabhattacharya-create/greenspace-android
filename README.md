@@ -1,4 +1,4 @@
-# GreenSpace — Android marketplace MVP, Stage 2
+# SpacePeace — Android marketplace MVP, Stage 2
 
 Independent urban gardening marketplace powered by Asim Shakti. Initial launch geography: Kolkata.
 
