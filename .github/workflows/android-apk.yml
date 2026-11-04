@@ -1,4 +1,4 @@
-name: Build GreenSpace Android APK
+name: Build SpacePeace Android APK
 
 on:
   workflow_dispatch:
