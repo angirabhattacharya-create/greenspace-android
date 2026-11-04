@@ -51,7 +51,7 @@ export default function App() {
     Alert.alert("Request received","Our team will contact you to confirm availability and the final quote.");
   };
   const Header=()=> <View style={s.header}>
-    <View style={s.brandLine}><View style={s.logoMark}><Text style={{fontSize:21}}>🌱</Text></View><View><Text style={s.brand}>SpacePeace</Text><Text style={s.brandSub}>POWERED BY ASIM SHAKTI</Text></View></View>
+    <View style={s.brandLine}><Image source={require("./assets/logo.png")} style={{width:44,height:44,borderRadius:12}} resizeMode="contain"/><View><Text style={s.brand}>SpacePeace</Text><Text style={s.brandSub}>POWERED BY ASIM SHAKTI</Text></View></View>
     <View style={s.location}><Text style={s.locationText}>⌖ Kolkata</Text></View>
   </View>;
   const ServiceCard=({item})=><View style={s.serviceCard}>
@@ -96,7 +96,7 @@ export default function App() {
       <View style={s.productGrid}>{products.slice(0,4).map(p=><ProductCard key={p.id} item={p}/>)}</View>
       <View style={s.promise}><Text style={s.promiseTitle}>Grow • Care • Nurture</Text><Text style={s.muted}>A little green can make every space feel like home.</Text></View>
     </Animated.View></ScrollView>;
-  if(showSplash) return <SafeAreaView style={[s.safe,{justifyContent:"center",alignItems:"center",backgroundColor:"#E8F3E5"}]}><StatusBar barStyle="dark-content" backgroundColor="#E8F3E5"/><Animated.View style={{alignItems:"center",opacity:fade,transform:[{scale:fade.interpolate({inputRange:[0,1],outputRange:[0.82,1]})}]}}><Text style={{fontSize:76}}>🌱</Text><Text style={{fontSize:35,fontWeight:"900",color:GREEN,letterSpacing:-1}}>SpacePeace</Text><Text style={{fontSize:11,fontWeight:"800",letterSpacing:2,color:"#67836C",marginTop:5}}>POWERED BY ASIM SHAKTI</Text><Text style={{fontSize:13,color:"#54735B",marginTop:28}}>Grow • Care • Nurture</Text></Animated.View></SafeAreaView>;\n  return <SafeAreaView style={s.safe}><StatusBar barStyle="dark-content" backgroundColor={PALE}/><Header/>{content}
+  if(showSplash) return <SafeAreaView style={[s.safe,{justifyContent:"center",alignItems:"center",backgroundColor:"#E8F3E5"}]}><StatusBar barStyle="dark-content" backgroundColor="#E8F3E5"/><Animated.View style={{alignItems:"center",opacity:fade,transform:[{scale:fade.interpolate({inputRange:[0,1],outputRange:[0.82,1]})}]}}><Image source={require("./assets/logo.png")} style={{width:300,height:300}} resizeMode="contain"/><Text style={{fontSize:13,color:"#54735B",marginTop:12}}>Grow • Care • Nurture</Text></Animated.View></SafeAreaView>;\n  return <SafeAreaView style={s.safe}><StatusBar barStyle="dark-content" backgroundColor={PALE}/><Header/>{content}
     <View style={s.tabs}>{[["Home","⌂"],["Services","✂"],["Store","🛍"],["Bookings","▣"],["Profile","◯"]].map(([x,ico])=><TouchableOpacity key={x} style={s.tab} onPress={()=>{setBooking(null);setTab(x);}}><Text style={[s.tabIcon,tab===x&&s.active]}>{ico}</Text><Text style={[s.tabText,tab===x&&s.active]}>{x}</Text></TouchableOpacity>)}</View>
   </SafeAreaView>;
 }
