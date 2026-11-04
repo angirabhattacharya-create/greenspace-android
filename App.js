@@ -12,8 +12,7 @@ const photo = {
   snake: "https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?w=800&auto=format&fit=crop",
   greenGold: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop",
   bio: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&auto=format&fit=crop",
-  vermi: "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop",
-  pruning: "https://images.unsplash.com/photo-剪枝?w=800"
+  vermi: "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=800&auto=format&fit=crop"
 };
 const services = [
   { id:"consult", title:"Video consultation", subtitle:"Talk to a gardening expert", price:299, tag:"ONLINE", image:photo.garden },
