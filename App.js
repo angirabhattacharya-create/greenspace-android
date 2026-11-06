@@ -108,7 +108,7 @@ export default function App() {
   if(showSplash) return <SafeAreaProvider><SafeAreaView style={[s.safe,{justifyContent:"center",alignItems:"center",backgroundColor:"#E8F3E5"}]}><StatusBar barStyle="dark-content" backgroundColor="#E8F3E5"/><Animated.View style={{alignItems:"center",opacity:fade,transform:[{scale:fade.interpolate({inputRange:[0,1],outputRange:[0.82,1]})}]}}><Image source={require("./assets/logo.png")} style={{width:300,height:300}} resizeMode="contain"/><Text style={{fontSize:13,color:"#54735B",marginTop:12}}>Grow • Care • Nurture</Text></Animated.View></SafeAreaView></SafeAreaProvider>;
   return <SafeAreaProvider><SafeAreaView style={s.safe}><StatusBar barStyle="dark-content" backgroundColor={PALE}/><Header/>{content}
     <View style={s.tabs}>{[["Home","⌂"],["Services","✂"],["Store","🛍"],["Bookings","▣"],["Profile","◯"]].map(([x,ico])=><TouchableOpacity key={x} style={s.tab} onPress={()=>{setBooking(null);setTab(x);}}><Text style={[s.tabIcon,tab===x&&s.active]}>{ico}</Text><Text style={[s.tabText,tab===x&&s.active]}>{x}</Text></TouchableOpacity>)}</View>
-  </SafeAreaView>;
+  </SafeAreaView></SafeAreaProvider>;
 }
 
 const s=StyleSheet.create({
