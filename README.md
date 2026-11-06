@@ -1,9 +1,11 @@
-# SpacePeace — Android marketplace MVP, Stage 2
+# Paw & Petal — Customer App prototype
 
-Independent urban gardening marketplace powered by Asim Shakti. Initial launch geography: Kolkata.
+Two-category marketplace for plants and gardening, plus pets and animal care. Initial launch geography: Kolkata.
 
 ## Business decisions locked
-- Brand structure: independent consumer brand, powered by Asim Shakti.
+- Brand: Paw & Petal.
+- App structure: customer app plus a separate partner/admin app sharing one backend.
+- AI Plant Doctor: excluded from product scope.
 - Service fulfilment: hybrid in-house + independent gardeners.
 - Job workflow: gardeners express interest/accept; admin confirms final assignment.
 - Payment policy: online payment only. Do not offer cash-on-delivery or cash service settlement in the customer app.
@@ -46,21 +48,6 @@ Decide the exact payment timing (at booking request vs after admin confirms avai
 - Failed or expired payment should not confirm the service.
 
 
-## AI plant identification setup
-The Android app now uses the Supabase Edge Function `identify-plant` for image analysis. The OpenAI key stays on the server and must never be added to the app or GitHub client-side build variables.
 
-1. Create a Supabase project at https://supabase.com/dashboard.
-2. In the Supabase project, open **Project Settings → API** and copy the Project URL and the **anon/public** key.
-3. In the project terminal, install the Supabase CLI and log in, then link this repository to your project:
-   `supabase login`
-   `supabase link --project-ref YOUR_PROJECT_REF`
-4. Set the server-side OpenAI key as a Supabase secret (do not paste it into GitHub or the app):
-   `supabase secrets set OPENAI_API_KEY=YOUR_OPENAI_API_KEY`
-5. Deploy the function:
-   `supabase functions deploy identify-plant`
-6. Configure the Expo/EAS build environment with:
-   - `EXPO_PUBLIC_SUPABASE_URL` = Supabase Project URL
-   - `EXPO_PUBLIC_SUPABASE_ANON_KEY` = Supabase anon/public key
-7. Rebuild the Android app after those EAS environment variables are available.
-
-The function uses OpenAI vision model `gpt-4.1-mini`. Usage is billed to the OpenAI API account. Add rate limits and usage monitoring before public launch. Never use the Supabase service-role key in the mobile app.
+## Current status
+The customer prototype is being rebranded from UrbanGrow to Paw & Petal. AI Plant Doctor is not part of the product. Customer, partner and admin workflows, evidence capture, and production backend controls remain under development.
