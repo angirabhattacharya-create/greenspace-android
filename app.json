@@ -1,15 +1,22 @@
 {
   "expo": {
-    "name": "SpacePeace",
+    "name": "UrbanGrow",
     "slug": "greenspace-asim-shakti",
     "version": "0.3.1",
     "icon": "./assets/icon.png",
-    "splash": { "image": "./assets/splash.png", "resizeMode": "contain", "backgroundColor": "#F3F8F1" },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F3F8F1"
+    },
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "android": {
       "package": "in.asimshakti.greenspace",
-      "adaptiveIcon": { "foregroundImage": "./assets/icon.png", "backgroundColor": "#F3F8F1" }
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#F3F8F1"
+      }
     },
     "extra": {
       "brandDescriptor": "An independent urban gardening marketplace powered by Asim Shakti"
