@@ -1,4 +1,4 @@
-name: Build SpacePeace Android APK
+name: Build Paw & Petal Android APK
 
 on:
   workflow_dispatch:
@@ -16,10 +16,10 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
-      - name: Generate SpacePeace brand images
+      - name: Generate Paw & Petal brand images
         run: |
           npm install --no-save sharp
-          node -e "const s=require('sharp'); Promise.all([s('assets/spacepeace-logo.svg').resize(1024,1024).png().toFile('assets/icon.png'),s('assets/spacepeace-logo.svg').resize(900,900).png().toFile('assets/logo.png'),s('assets/spacepeace-splash.svg').resize(1080,2340).png().toFile('assets/splash.png')]).catch(e=>{console.error(e);process.exit(1)})"
+          node -e "const s=require('sharp'); Promise.all([s('assets/paw-petal-logo.svg').resize(1024,1024).png().toFile('assets/icon.png'),s('assets/paw-petal-logo.svg').resize(900,900).png().toFile('assets/logo.png'),s('assets/paw-petal-splash.svg').resize(1080,2340).png().toFile('assets/splash.png')]).catch(e=>{console.error(e);process.exit(1)})"
       - name: Link EAS project
         run: npx --yes eas-cli@latest init --force --non-interactive
         env:
