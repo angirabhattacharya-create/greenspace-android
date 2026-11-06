@@ -35,7 +35,7 @@ export default function App() {
   const [tab,setTab]=useState("Home"), [booking,setBooking]=useState(null), [showSplash,setShowSplash]=useState(true);
   const [address,setAddress]=useState(""), [date,setDate]=useState(""), [time,setTime]=useState("");
   const [notes,setNotes]=useState(""), [cart,setCart]=useState({}), [bookings,setBookings]=useState([]);
-  const [name,setName]=useState(""), [phone,setPhone]=useState(""), [category,setCategory]=useState("All"), [search,setSearch]=useState(""), [plantImage,setPlantImage]=useState(null), [plantResult,setPlantResult]=useState(""), [identifying,setIdentifying]=useState(false);
+  const [name,setName]=useState(""), [phone,setPhone]=useState(""), [category,setCategory]=useState("All"), [search,setSearch]=useState("");
   const fade=useRef(new Animated.Value(0)).current;
   const lift=useRef(new Animated.Value(18)).current;
   useEffect(()=>{const splashTimer=setTimeout(()=>setShowSplash(false),1900);Animated.parallel([
