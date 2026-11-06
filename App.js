@@ -118,7 +118,7 @@ export default function App() {
       <View style={s.productGrid}>{products.slice(0,4).map(p=><ProductCard key={p.id} item={p}/>)}</View>
       <View style={s.promise}><Text style={s.promiseTitle}>Grow • Care • Nurture</Text><Text style={s.muted}>A little green can make every space feel like home.</Text></View>
     </Animated.View></ScrollView>;
-  else if(tab==="Scan") content=<ScrollView contentContainerStyle={s.content}><Text style={s.heading}>AI Plant Identifier</Text><Text style={s.muted}>Take a clear photo of a leaf, flower or the whole plant. Our AI will help identify it and suggest care.</Text>
+  if(tab==="Scan") content=<ScrollView contentContainerStyle={s.content}><Text style={s.heading}>AI Plant Identifier</Text><Text style={s.muted}>Take a clear photo of a leaf, flower or the whole plant. Our AI will help identify it and suggest care.</Text>
     <View style={s.scanPreview}>{plantImage?<Image source={{uri:plantImage.uri}} style={s.scanImage}/>:<><Text style={{fontSize:54}}>🌿</Text><Text style={s.cardTitle}>Your plant photo appears here</Text></>}</View>
     <TouchableOpacity style={s.button} onPress={()=>choosePlantPhoto("camera")}><Text style={s.buttonText}>📷  Take a photo</Text></TouchableOpacity>
     <TouchableOpacity style={s.secondaryButton} onPress={()=>choosePlantPhoto("gallery")}><Text style={s.secondaryButtonText}>Choose from gallery</Text></TouchableOpacity>
