@@ -1,11 +1,15 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
+import { createClient } from "@supabase/supabase-js";
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, Alert, StatusBar, Image, ImageBackground, Animated } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 const GREEN = "#176B3A";
 const DARK = "#163D28";
 const PALE = "#F3F8F1";
+const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = SUPABASE_URL && SUPABASE_ANON_KEY ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const photo = {
   hero: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1200&auto=format&fit=crop",
   garden: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=900&auto=format&fit=crop",
@@ -82,9 +86,8 @@ export default function App() {
   };
   const identifyPlant=async()=>{
     if(!plantImage?.base64)return Alert.alert("Add a photo","Take a plant photo or choose one from your gallery first.");
-    const endpoint=process.env.EXPO_PUBLIC_PLANT_ID_API_URL;
-    if(!endpoint)return Alert.alert("Almost ready","Camera and photo selection are ready. The secure AI service still needs to be connected before identification can run.");
-    try{setIdentifying(true);const response=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({imageBase64:plantImage.base64,mimeType:plantImage.mimeType||"image/jpeg"})});const data=await response.json();if(!response.ok)throw new Error(data.error||"Identification failed");setPlantResult(data.result||"No identification details returned.");}catch(e){Alert.alert("Could not identify plant",e.message||"Please try again.");}finally{setIdentifying(false);}
+    if(!supabase)return Alert.alert("Setup required","The secure plant-identification service is not connected yet. Add the Supabase app settings to the build to continue.");
+    try{setIdentifying(true);const {data,error}=await supabase.functions.invoke("identify-plant",{body:{imageBase64:plantImage.base64,mimeType:plantImage.mimeType||"image/jpeg"}});if(error)throw error;if(data?.error)throw new Error(data.error);setPlantResult(data?.result||"No identification details returned.");}catch(e){Alert.alert("Could not identify plant",e.message||"Please try again.");}finally{setIdentifying(false); }
   };
   let content;
   if(booking) content=<ScrollView contentContainerStyle={s.content}><TouchableOpacity onPress={()=>setBooking(null)}><Text style={s.link}>← Back</Text></TouchableOpacity><Text style={s.heading}>Book {booking.title}</Text><Text style={s.muted}>Starting from ₹{booking.price}. Final price is confirmed by our team.</Text>
