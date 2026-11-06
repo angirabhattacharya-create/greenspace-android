@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "UrbanGrow",
+    "name": "Paw & Petal",
     "slug": "greenspace-asim-shakti",
     "version": "0.3.1",
     "icon": "./assets/icon.png",
@@ -19,17 +19,9 @@
       }
     },
     "extra": {
-      "brandDescriptor": "An independent urban gardening marketplace powered by Asim Shakti"
+      "brandDescriptor": "A two-sided marketplace for plants, gardening, pets and animal care"
     },
     "owner": "asimshakti",
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "Allow UrbanGrow to choose a plant photo for identification.",
-          "cameraPermission": "Allow UrbanGrow to take a plant photo for identification."
-        }
-      ]
-    ]
+    "plugins": []
   }
 }
