@@ -21,6 +21,15 @@
     "extra": {
       "brandDescriptor": "An independent urban gardening marketplace powered by Asim Shakti"
     },
-    "owner": "asimshakti"
+    "owner": "asimshakti",
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow UrbanGrow to choose a plant photo for identification.",
+          "cameraPermission": "Allow UrbanGrow to take a plant photo for identification."
+        }
+      ]
+    ]
   }
 }
