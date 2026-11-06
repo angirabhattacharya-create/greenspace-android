@@ -1,15 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import * as ImagePicker from "expo-image-picker";
-import { createClient } from "@supabase/supabase-js";
 import { View, Text, ScrollView, TouchableOpacity, TextInput, StyleSheet, Alert, StatusBar, Image, ImageBackground, Animated } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 const GREEN = "#176B3A";
 const DARK = "#163D28";
 const PALE = "#F3F8F1";
-const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
-const supabase = SUPABASE_URL && SUPABASE_ANON_KEY ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const photo = {
   hero: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1200&auto=format&fit=crop",
   garden: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=900&auto=format&fit=crop",
@@ -61,7 +56,7 @@ export default function App() {
   const Header=()=> <View style={s.header}>
     <View style={s.headerLeft}>
       {(tab!=="Home" || booking) && <TouchableOpacity accessibilityRole="button" accessibilityLabel="Back to Home" style={s.backHome} onPress={()=>{setBooking(null);setTab("Home");}}><Text style={s.backHomeText}>‹</Text></TouchableOpacity>}
-      <View style={s.brandLine}><View style={s.brandMark}><Text style={s.brandLeaf}>✿</Text></View><View><Text style={s.brand}>UrbanGrow</Text><Text style={s.brandSub}>POWERED BY ASIM SHAKTI</Text></View></View>
+      <View style={s.brandLine}><View style={s.brandMark}><Text style={s.brandLeaf}>✿</Text></View><View><Text style={s.brand}>Paw & Petal</Text><Text style={s.brandSub}>GROW • CARE • CONNECT</Text></View></View>
     </View>
     <TouchableOpacity style={s.cartHeader} onPress={()=>setTab("Cart")}><Text style={s.cartHeaderIcon}>🛒</Text>{cartCount>0&&<View style={s.cartBadge}><Text style={s.cartBadgeText}>{cartCount}</Text></View>}</TouchableOpacity><View style={s.location}><Text style={s.locationText}>⌖ Kolkata</Text></View>
   </View>;
@@ -78,17 +73,6 @@ export default function App() {
       <View style={s.row}><Text style={s.price}>₹{item.price}</Text><TouchableOpacity style={s.addButton} onPress={()=>add(item.id)}><Text style={s.addText}>{cart[item.id]?"+"+cart[item.id]:"＋"}</Text></TouchableOpacity></View>
     </View>
   </TouchableOpacity>;
-  const choosePlantPhoto=async(source)=>{
-    const permission=source==="camera"?await ImagePicker.requestCameraPermissionsAsync():await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if(!permission.granted){Alert.alert("Permission needed","Please allow camera or photo-library access to identify a plant.");return;}
-    const result=source==="camera"?await ImagePicker.launchCameraAsync({mediaTypes:["images"],quality:0.75,base64:true}):await ImagePicker.launchImageLibraryAsync({mediaTypes:["images"],quality:0.75,base64:true});
-    if(!result.canceled&&result.assets?.[0]){setPlantImage(result.assets[0]);setPlantResult("");}
-  };
-  const identifyPlant=async()=>{
-    if(!plantImage?.base64)return Alert.alert("Add a photo","Take a plant photo or choose one from your gallery first.");
-    if(!supabase)return Alert.alert("Setup required","The secure plant-identification service is not connected yet. Add the Supabase app settings to the build to continue.");
-    try{setIdentifying(true);const {data,error}=await supabase.functions.invoke("identify-plant",{body:{imageBase64:plantImage.base64,mimeType:plantImage.mimeType||"image/jpeg"}});if(error)throw error;if(data?.error)throw new Error(data.error);setPlantResult(data?.result||"No identification details returned.");}catch(e){Alert.alert("Could not identify plant",e.message||"Please try again.");}finally{setIdentifying(false); }
-  };
   let content;
   if(booking) content=<ScrollView contentContainerStyle={s.content}><TouchableOpacity onPress={()=>setBooking(null)}><Text style={s.link}>← Back</Text></TouchableOpacity><Text style={s.heading}>Book {booking.title}</Text><Text style={s.muted}>Starting from ₹{booking.price}. Final price is confirmed by our team.</Text>
     <Text style={s.label}>Service address in Kolkata *</Text><TextInput style={s.input} placeholder="Flat, street, area and PIN code" value={address} onChangeText={setAddress}/>
@@ -108,12 +92,12 @@ export default function App() {
   else if(tab==="Profile") content=<ScrollView contentContainerStyle={s.content}><Text style={s.heading}>Your profile</Text><View style={s.card}><Text style={s.label}>Name</Text><TextInput style={s.input} placeholder="Your name" value={name} onChangeText={setName}/><Text style={s.label}>Mobile number</Text><TextInput style={s.input} placeholder="Mobile number" keyboardType="phone-pad" value={phone} onChangeText={setPhone}/><Text style={s.fine}>OTP verification will be enabled in a later build.</Text><TouchableOpacity style={s.button} onPress={()=>Alert.alert("Saved","Profile details saved for this demo.")}><Text style={s.buttonText}>Save details</Text></TouchableOpacity></View></ScrollView>;
   else content=<ScrollView contentContainerStyle={s.content}>
     <Animated.View style={{opacity:fade,transform:[{translateY:lift}]}}>
-      <View style={s.searchBox}><Text style={s.searchIcon}>⌕</Text><TextInput style={s.searchInput} placeholder="Search plants, soil, services..." placeholderTextColor="#8A9A90" value={search} onChangeText={setSearch}/></View>
+      <View style={s.searchBox}><Text style={s.searchIcon}>⌕</Text><TextInput style={s.searchInput} placeholder="Search plants, pets, products & services..." placeholderTextColor="#8A9A90" value={search} onChangeText={setSearch}/></View>
       <ImageBackground source={{uri:photo.hero}} style={s.hero} imageStyle={{borderRadius:24}}>
-        <View style={s.heroShade}><Text style={s.eyebrow}>URBAN GARDENING</Text><Text style={s.heroTitle}>A greener home starts right here.</Text><Text style={s.heroText}>Plants, products & expert care delivered to your door.</Text><TouchableOpacity style={s.heroButton} onPress={()=>setTab("Scan")}><Text style={s.buttonText}>✦  AI Plant Identifier</Text></TouchableOpacity></View>
+        <View style={s.heroShade}><Text style={s.eyebrow}>WELCOME TO PAW & PETAL</Text><Text style={s.heroTitle}>Care for every leaf. Love for every paw.</Text><Text style={s.heroText}>Plants, gardening, pets and animal care — all in one place.</Text></View>
       </ImageBackground>
       <Text style={s.sectionLabel}>WHAT DO YOU NEED TODAY?</Text>
-      <View style={s.quickRow}>{[["🎧","Consult","Services"],["✂️","Maintain","Services"],["🏪","Store","Store"],["✦","AI Scan","Scan"]].map(([e,l,t])=><TouchableOpacity key={l} style={[s.quick,t==="Scan"&&s.quickDark]} onPress={()=>setTab(t)}><Text style={{fontSize:24,color:t==="Scan"?"#FCD34D":GREEN}}>{e}</Text><Text style={[s.quickText,t==="Scan"&&{color:"white"}]}>{l}</Text></TouchableOpacity>)}</View>
+      <View style={s.quickRow}>{[["🌿","Plants","Services"],["🪴","Gardening","Services"],["🐾","Pets","Store"],["🛍️","Shop","Store"]].map(([e,l,t])=><TouchableOpacity key={l} style={s.quick} onPress={()=>setTab(t)}><Text style={{fontSize:24,color:GREEN}}>{e}</Text><Text style={s.quickText}>{l}</Text></TouchableOpacity>)}</View>
       <View style={s.featured}><View style={s.featureTop}><View><Text style={s.featureTag}>FEATURED GARDEN ESSENTIAL</Text><Text style={s.cardTitle}>Green Gold</Text><Text style={s.muted}>Garden Mixture • 500 g</Text></View><Text style={s.featureIcon}>🌱</Text></View><View style={s.featureBottom}><View><Text style={s.featurePrice}>₹120</Text><Text style={s.fine}>Demo listing price</Text></View><TouchableOpacity style={s.featureAdd} onPress={()=>add("green-gold")}><Text style={s.buttonText}>＋ Add to cart</Text></TouchableOpacity></View></View>
       <View style={s.row}><Text style={s.heading}>Popular services</Text><TouchableOpacity onPress={()=>setTab("Services")}><Text style={s.link}>See all →</Text></TouchableOpacity></View>
       {services.slice(0,3).map(x=><ServiceCard key={x.id} item={x}/>)}
@@ -121,14 +105,7 @@ export default function App() {
       <View style={s.productGrid}>{products.slice(0,4).map(p=><ProductCard key={p.id} item={p}/>)}</View>
       <View style={s.promise}><Text style={s.promiseTitle}>Grow • Care • Nurture</Text><Text style={s.muted}>A little green can make every space feel like home.</Text></View>
     </Animated.View></ScrollView>;
-  if(tab==="Scan") content=<ScrollView contentContainerStyle={s.content}><Text style={s.heading}>AI Plant Identifier</Text><Text style={s.muted}>Take a clear photo of a leaf, flower or the whole plant. Our AI will help identify it and suggest care.</Text>
-    <View style={s.scanPreview}>{plantImage?<Image source={{uri:plantImage.uri}} style={s.scanImage}/>:<><Text style={{fontSize:54}}>🌿</Text><Text style={s.cardTitle}>Your plant photo appears here</Text></>}</View>
-    <TouchableOpacity style={s.button} onPress={()=>choosePlantPhoto("camera")}><Text style={s.buttonText}>📷  Take a photo</Text></TouchableOpacity>
-    <TouchableOpacity style={s.secondaryButton} onPress={()=>choosePlantPhoto("gallery")}><Text style={s.secondaryButtonText}>Choose from gallery</Text></TouchableOpacity>
-    {plantImage&&<TouchableOpacity style={s.button} disabled={identifying} onPress={identifyPlant}><Text style={s.buttonText}>{identifying?"Identifying...":"Identify this plant ✦"}</Text></TouchableOpacity>}
-    {!!plantResult&&<View style={s.card}><Text style={s.cardTitle}>Plant identification</Text><Text style={s.muted}>{plantResult}</Text></View>}
-    <Text style={s.fine}>AI results are suggestions, not a substitute for expert diagnosis. Avoid uploading people or private documents.</Text></ScrollView>;
-  if(showSplash) return <SafeAreaProvider><SafeAreaView style={[s.safe,{justifyContent:"center",alignItems:"center",backgroundColor:"#E8F3E5"}]}><StatusBar barStyle="dark-content" backgroundColor="#E8F3E5"/><Animated.View style={{alignItems:"center",opacity:fade,transform:[{scale:fade.interpolate({inputRange:[0,1],outputRange:[0.82,1]})}]}}><Image source={require("./assets/logo.png")} style={{width:300,height:300}} resizeMode="contain"/><Text style={{fontSize:13,color:"#54735B",marginTop:12}}>Urban gardening, made simple</Text></Animated.View></SafeAreaView></SafeAreaProvider>;
+  if(showSplash) return <SafeAreaProvider><SafeAreaView style={[s.safe,{justifyContent:"center",alignItems:"center",backgroundColor:"#E8F3E5"}]}><StatusBar barStyle="dark-content" backgroundColor="#E8F3E5"/><Animated.View style={{alignItems:"center",opacity:fade,transform:[{scale:fade.interpolate({inputRange:[0,1],outputRange:[0.82,1]})}]}}><Image source={require("./assets/logo.png")} style={{width:300,height:300}} resizeMode="contain"/><Text style={{fontSize:13,color:"#54735B",marginTop:12}}>Plants, pets and care — together</Text></Animated.View></SafeAreaView></SafeAreaProvider>;
   return <SafeAreaProvider><SafeAreaView style={s.safe}><StatusBar barStyle="dark-content" backgroundColor={PALE}/><Header/>{content}
     <View style={s.tabs}>{[["Home","⌂"],["Services","✂"],["Store","🛍"],["Bookings","▣"],["Profile","◯"]].map(([x,ico])=><TouchableOpacity key={x} style={s.tab} onPress={()=>{setBooking(null);setTab(x);}}><Text style={[s.tabIcon,tab===x&&s.active]}>{ico}</Text><Text style={[s.tabText,tab===x&&s.active]}>{x}</Text></TouchableOpacity>)}</View>
   </SafeAreaView></SafeAreaProvider>;
